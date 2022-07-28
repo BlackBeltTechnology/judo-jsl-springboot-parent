@@ -4,11 +4,10 @@ image::https://github.com/BlackBeltTechnology/judo-jsl-springboot-parent/actions
 
 == Introduction
 
-The `judo-jsl-springboot-parent` project contain all essential dependencies to bootstrap a JUDO JSL based
+The `judo-jsl-springboot-parent` project contains all essential dependencies to bootstrap a JUDO JSL based
 springboot application.
 
 == Bootstrap a project
-
 
 === Define `pom.xml`
 
@@ -52,7 +51,6 @@ springboot application.
 +
 
 <2> (Mandatory) Model name
-+
 
 === Define model
 
@@ -64,12 +62,7 @@ The `modeName` have to be same as defined `modelName` property in `pom.xml
 ----
 model <modelName>
 
-type numeric Integer(precision = 9, scale = 0)
 type string String(max-length = 128)
-type string PhoneNumber(max-length = 32, regex = "^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$")
-type boolean Boolean
-type date Date
-type timestamp Timestamp
 
 entity Person {
 	field String firstName
@@ -81,7 +74,7 @@ entity Person {
 
 === Add application configuration
 
-Put `application.properties` file into `src\main\resources`
+Put `application.properties` file into `src/main/resources`
 It can configure spring dataSource and liquibase.
 
 The `modeName` have to be same as defined `modelName` property in `pom.xml
@@ -96,11 +89,9 @@ spring.liquibase.change-log=classpath:model/<modelName>-liquibase_hsqldb.changel
 judo.modelName=<modelName>
 ----
 
-== Add springboot application
+=== Add springboot application
 
-
-Put `<ModelName>SpringApplication.java` file into `src\main\java`. Use any arbitary package you prefer.
-It can configure spring dataSource and liquibase.
+Put `<ModelName>SpringApplication.java` file into `src/main/java`. Use any arbitrary package you prefer.
 
 The `modeName` have to be same as defined `modelName` property in `pom.xml
 
@@ -132,7 +123,7 @@ public class <ModelName>SpringApplication {
 }
 ----
 
-== Add springboot application test
+=== Add springboot application test
 
 Put `<ModelName>SpringApplicationTest.java` file into `src/test/java`. Use same package as `<ModelName>SpringApplication.java` use.
 
