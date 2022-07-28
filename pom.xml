@@ -1,0 +1,674 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>hu.blackbelt.judo.jsl</groupId>
+    <artifactId>judo-jsl-springboot</artifactId>
+    <packaging>pom</packaging>
+    <version>${revision}</version>
+
+    <name>JUDO JSL :: Springboot parent</name>
+    <description>JUDO Specific Language Springboot parent</description>
+
+    <properties>
+        <revision>1.0.0-SNAPSHOT</revision>
+        <maven>3.8.3</maven>
+        <maven.version>3.8.3</maven.version>
+        <project-shortname>judo-jsl-spirngboot-parent</project-shortname>
+        <project-repositoryId>BlackBeltTechnology/judo-jsl-springboot-parent</project-repositoryId>
+
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <src.dir>src/main</src.dir>
+
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <surefire-version>3.0.0-M5</surefire-version>
+        <slf4j-version>1.7.36</slf4j-version>
+        <jacoco.version>0.8.6</jacoco.version>
+
+        <epsilon-runtime-version>1.4.0.20220629_123622_4279f257_develop</epsilon-runtime-version>
+        <judo-tatami-core-version>1.1.0.20220629_124119_2b63ca1f_develop</judo-tatami-core-version>
+        <judo-tatami-jsl-version>1.1.0.20220727_085345_58bb17bf_feature_JNG_3879_PowerTranspilationToMultiplication</judo-tatami-jsl-version>
+        <judo-runtime-core-version>1.0.0.20220724_142847_0809ec09_develop</judo-runtime-core-version>
+
+        <!-- Code Quality-->
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <developers>
+        <developer>
+            <id>robson</id>
+            <name>Csákány Róbert</name>
+            <email>robert.csakany@blackbelt.hu</email>
+            <url>https://github.com/robertcsakany</url>
+            <organization>BlackBelt Technology</organization>
+            <organizationUrl>https://www.blackbelt.hu</organizationUrl>
+        </developer>
+    </developers>
+
+    <url>http://github.com/${project-repositoryId}</url>
+
+    <issueManagement>
+        <url>https://github.com/${project-repositoryId}/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
+    <scm>
+        <connection>scm:git:git@github.com:${project-repositoryId}.git</connection>
+        <!--suppress UnresolvedMavenProperty -->
+        <developerConnection>scm:git:ssh://${git.username}@github.com:${project-repositoryId}.git
+        </developerConnection>
+        <url>http://github.com/${project-repositoryId}</url>
+    </scm>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.1.0</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                    <configuration>
+                        <source>11</source>
+                        <target>11</target>
+                    </configuration>
+                </plugin>
+
+            <plugin>
+                <groupId>hu.blackbelt.judo.tatami</groupId>
+                <artifactId>judo-tatami-jsl-workflow-maven-plugin</artifactId>
+                <version>${judo-tatami-jsl-version}</version>
+                <executions>
+                    <execution>
+                        <id>generate-models</id>
+                        <goals>
+                            <goal>parser-workflow</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sources>${basedir}/src/main/resources/model</sources>
+                    <dialects>hsqldb,postgresql</dialects>
+                    <generateSdkSpring>true</generateSdkSpring>
+                    <sdkPackagePrefix>${sdkPackagePrefix}</sdkPackagePrefix>
+                    <destination>${basedir}/target/generated-sources/model</destination>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.basedir}/target/generated-sources/model/sdk/${modelName}</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>add-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/target/generated-sources/model</directory>
+                                    <targetPath>model</targetPath>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+
+                </executions>
+            </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.5.2</version>
+                    <executions>
+                        <execution>
+                            <id>default-install</id>
+                            <configuration>
+                                <skip>${deployOnly}</skip>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>default-test</id>
+                            <configuration>
+                                <skip>${deployOnly}</skip>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.8.2</version>
+                </plugin>
+
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${surefire-version}</version>
+                    <configuration>
+                        <argLine>-Dfile.encoding=UTF-8</argLine>
+                        <trimStackTrace>false</trimStackTrace>
+                        <systemPropertyVariables>
+                            <logback.configuration>${logback-test-config}</logback.configuration>
+                        </systemPropertyVariables>
+                        <argLine>
+                            -Dfile.encoding=UTF-8
+                            --add-opens java.base/java.lang=ALL-UNNAMED
+                            --add-opens java.base/java.util=ALL-UNNAMED
+                            --add-opens java.base/java.time=ALL-UNNAMED
+                        </argLine>
+                        <trimStackTrace>false</trimStackTrace>
+                    </configuration>
+                </plugin>
+
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>
+                                            org.codehaus.mojo
+                                        </groupId>
+                                        <artifactId>
+                                            flatten-maven-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [1.1.0,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>flatten</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+        						<pluginExecution>
+        							<pluginExecutionFilter>
+        								<groupId>
+        									hu.blackbelt.judo.tatami
+        								</groupId>
+        								<artifactId>
+        									judo-tatami-jsl-workflow-maven-plugin
+        								</artifactId>
+        								<versionRange>
+        									[1.0,)
+        								</versionRange>
+        								<goals>
+        									<goal>parser-workflow</goal>
+        								</goals>
+        							</pluginExecutionFilter>
+        							<action>
+        								<ignore></ignore>
+        							</action>
+        						</pluginExecution>
+
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>hu.blackbelt.judo.runtime</groupId>
+                <artifactId>judo-runtime-core-dependencies</artifactId>
+                <version>${judo-runtime-core-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr-runtime</artifactId>
+                <version>3.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>hu.blackbelt.judo.tatami</groupId>
+                <artifactId>judo-tatami-jsl-jsl2psm</artifactId>
+                <version>${judo-tatami-jsl-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>hu.blackbelt.judo.tatami</groupId>
+                <artifactId>judo-tatami-jsl-workflow</artifactId>
+                <version>${judo-tatami-jsl-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>fr.jmini.ecentral</groupId>
+                <artifactId>eclipse-platform-dependencies</artifactId>
+                <version>4.22</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<type>pom</type>
+				<version>2.7.0</version>
+				<scope>import</scope>
+			</dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.11</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mattbertolini</groupId>
+            <artifactId>liquibase-slf4j</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+            <version>${slf4j-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>uk.org.lidalia</groupId>
+            <artifactId>sysout-over-slf4j</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.blackbelt.epsilon</groupId>
+            <artifactId>epsilon-runtime-execution</artifactId>
+            <version>${epsilon-runtime-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>org.eclipse.emf.ecore</artifactId>
+            <version>2.21.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>org.eclipse.emf.common</artifactId>
+            <version>2.21.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>org.eclipse.emf.ecore.xmi</artifactId>
+            <version>2.16.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>27.1-jre</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.8.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.8.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.8.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jcabi</groupId>
+            <artifactId>jcabi-log</artifactId>
+            <version>0.18</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest</artifactId>
+            <version>2.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.0.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>4.5.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atomikos</groupId>
+            <artifactId>transactions-jta</artifactId>
+            <version>4.0.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atomikos</groupId>
+            <artifactId>transactions-jdbc</artifactId>
+            <version>4.0.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.6.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>5.3.20</version>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.blackbelt.judo.runtime</groupId>
+            <artifactId>judo-runtime-core-spring</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.blackbelt.judo.runtime</groupId>
+            <artifactId>judo-runtime-core-spring-hsqldb</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.blackbelt.judo.runtime</groupId>
+            <artifactId>judo-runtime-core-spring-postgresql</artifactId>
+        </dependency>
+
+        <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jta-atomikos</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.blackbelt.judo</groupId>
+            <artifactId>judo-dao-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.blackbelt.judo</groupId>
+            <artifactId>judo-sdk-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.blackbelt.mapper</groupId>
+            <artifactId>mapper-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.blackbelt.mapper</groupId>
+            <artifactId>mapper-impl</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.blackbelt.judo.runtime</groupId>
+            <artifactId>judo-runtime-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.blackbelt.judo.runtime</groupId>
+            <artifactId>judo-runtime-core-dao-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.blackbelt.judo.runtime</groupId>
+            <artifactId>judo-runtime-core-dao-rdbms</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.blackbelt.judo.runtime</groupId>
+            <artifactId>judo-runtime-core-dao-rdbms-hsqldb</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.blackbelt.judo.runtime</groupId>
+            <artifactId>judo-runtime-core-dao-rdbms-postgresql</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.blackbelt.judo.runtime</groupId>
+            <artifactId>judo-runtime-core-dispatcher</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.blackbelt.judo.runtime</groupId>
+            <artifactId>judo-runtime-core-accessmanager-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.blackbelt.judo.runtime</groupId>
+            <artifactId>judo-runtime-core-accessmanager</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.blackbelt.judo.tatami</groupId>
+            <artifactId>judo-tatami-asm2rdbms</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.blackbelt.judo.meta</groupId>
+            <artifactId>hu.blackbelt.judo.meta.liquibase.model</artifactId>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>sign-artifacts</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <keyname>${gpg.keyname}</keyname>
+                                    <passphraseServerId>${gpg.keyname}</passphraseServerId>
+                                    <!-- This is necessary for gpg to not try to use the pinentry programs -->
+                                    <gpgArguments>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>release-dummy</id>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>dummy-distribution</id>
+                    <url>file:///tmp/${project.groupId}-${project.artifactId}-${project.version}/maven-snapshot/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>dummy-distribution</id>
+                    <url>file:///tmp/${project.groupId}-${project.artifactId}-${project.version}/maven-release/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+
+        <profile>
+            <id>release-judong</id>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>judong-nexus-distribution</id>
+                    <!--suppress UnresolvedMavenProperty -->
+                    <url>https://nexus.judo.technology/repository/maven-judong-snapshots/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>judong-nexus-distribution</id>
+                    <!--suppress UnresolvedMavenProperty -->
+                    <url>https://nexus.judo.technology/repository/maven-judong-snapshots/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+
+        <profile>
+            <id>release-central</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+                <repository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
+</project>
+
