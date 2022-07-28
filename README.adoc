@@ -1,0 +1,4 @@
+# judo-jsl-springboot-parent
+
+image::https://github.com/BlackBeltTechnology/judo-jsl-springboot-parent/actions/workflows/build.yml/badge.svg?branch=develop[link="https://github.com/BlackBeltTechnology/judo-jsl-springboot-parent/actions/workflows/build.yml" float="center"]
+
