@@ -9,7 +9,7 @@ springboot application.
 
 == Bootstrap a project
 
-=== Define `pom.xml`
+=== Define a `pom.xml` file
 
 [source,xml]
 ----
@@ -47,16 +47,16 @@ springboot application.
 </project>
 ----
 
-<1> (Mandatory) Defines where the SDK packages generated to.
+<1> (Mandatory) Defines where the SDK packages are generated to.
 +
 
 <2> (Mandatory) Model name
 
-=== Define model
+=== Define a model
 
-Put `<modelName>.jsl` file into `src/main/resources/model` directory. For example:
+Create a `<modelName>.jsl` file in the `src/main/resources/model` directory. For example:
 
-The `modelName` have to be same as defined `modelName` property in `pom.xml
+* The `modelName` has to be the same as the defined `modelName` property in `pom.xml.
 
 [source]
 ----
@@ -72,12 +72,13 @@ entity Person {
 }
 ----
 
-=== Add application configuration
+=== Add an application configuration
 
-Put `application.properties` file into `src/main/resources`
-It can configure spring dataSource and liquibase.
+Create an `application.properties` file inside the `src/main/resources` directory.
 
-The `modelName` have to be same as defined `modelName` property in `pom.xml
+This file serves as a configuration for Spring dataSource and Liquibase.
+
+* The `modelName` has to be the same as the defined `modelName` property in `pom.xml.
 
 [source]
 ----
@@ -89,11 +90,12 @@ spring.liquibase.change-log=classpath:model/<modelName>-liquibase_hsqldb.changel
 judo.modelName=<modelName>
 ----
 
-=== Add springboot application
+=== Add a Spring Boot application class to the sources
 
-Put `<ModelName>SpringApplication.java` file into `src/main/java`. Use any arbitrary package you prefer.
+Create a `<ModelName>SpringApplication.java` file inside the `src/main/java` directory. You may use any arbitrary
+package.
 
-The `modelName` have to be same as defined `modelName` property in `pom.xml
+* The `ModelName` has to be the same as the defined `modelName` property in `pom.xml.
 
 Example:
 
@@ -123,12 +125,13 @@ public class <ModelName>SpringApplication {
 }
 ----
 
-=== Add springboot application test
+=== Add Spring Boot application tests
 
-Put `<ModelName>SpringApplicationTest.java` file into `src/test/java`. Use same package as `<ModelName>SpringApplication.java` use.
+Create a `<ModelName>SpringApplicationTest.java` file inside the `src/test/java` directory. Use same package as to what
+you used for `<ModelName>SpringApplication.java`.
 
-The `modelName` have to be same as defined `modelName` property in `pom.xml
-The `sdkPackagePrefix` have to be same as defined `sdkPackagePrefix` property in `pom.xml
+* The `ModelName` has to be the same as the defined `modelName` property in `pom.xml.
+* The `sdkPackagePrefix` attribute has to be the same as the pre-defined `sdkPackagePrefix` property in the `pom.xml` file.
 
 Example:
 
@@ -166,3 +169,11 @@ class <modelName>SpringApplicationTests {
 
 }
 ----
+
+== Contributing to the project
+
+Everyone is welcome to contribute to JUDO! As a starter, please read the corresponding link:CONTRIBUTING.adoc[CONTRIBUTING] guide for details!
+
+== License
+
+This project is licensed under the https://www.eclipse.org/legal/epl-2.0/[Eclipse Public License - v 2.0].
