@@ -28,8 +28,8 @@
 
         <epsilon-runtime-version>1.5.0</epsilon-runtime-version>
         <judo-tatami-core-version>1.1.0</judo-tatami-core-version>
-        <judo-tatami-jsl-version>1.1.0</judo-tatami-jsl-version>
-        <judo-runtime-core-version>1.0.0</judo-runtime-core-version>
+        <judo-tatami-jsl-version>1.1.1</judo-tatami-jsl-version>
+        <judo-runtime-core-version>1.0.2</judo-runtime-core-version>
 
         <!-- Code Quality-->
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
