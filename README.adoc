@@ -1,4 +1,184 @@
-# judo-jsl-springboot-parent
+= judo-jsl-springboot-parent
 
 image::https://github.com/BlackBeltTechnology/judo-jsl-springboot-parent/actions/workflows/build.yml/badge.svg?branch=develop[link="https://github.com/BlackBeltTechnology/judo-jsl-springboot-parent/actions/workflows/build.yml" float="center"]
 
+== Introduction
+
+The `judo-jsl-springboot-parent` project contains all essential dependencies to bootstrap a JUDO JSL based
+springboot application.
+
+== Context
+
+This project is a building block of the https://github.com/BlackBeltTechnology/judo-community[judo-community] aggregator
+project. In order to better understand how this module fits into our ecosystem, please check the corresponding documentation!
+
+== Bootstrap a project
+
+=== Define a `pom.xml` file
+
+[source,xml]
+----
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>hu.blackbelt.judo.jsl</groupId>
+        <artifactId>judo-jsl-springboot</artifactId>
+        <version>LATEST</version>
+    </parent>
+
+    <groupId>-- PROJECT GROUP NAME --</groupId>
+    <artifactId>-- PROJECT ARTIFACT NAME --</artifactId>
+    <packaging>jar</packaging>
+    <version>-- PROJECT VERSION --</version>
+
+    <properties>
+        <sdkPackagePrefix>hu.blackbelt.judo.jsl.springboot</sdkPackagePrefix> <!-- 1 -->
+        <modelName>Test</modelName> <!-- 2 -->
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>hu.blackbelt.judo.tatami</groupId>
+                <artifactId>judo-tatami-jsl-workflow-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+----
+
+<1> (Mandatory) Defines where the SDK packages are generated to.
++
+
+<2> (Mandatory) Model name
+
+=== Define a model
+
+Create a `<modelName>.jsl` file in the `src/main/resources/model` directory. For example:
+
+* The `modelName` has to be the same as the defined `modelName` property in `pom.xml.
+
+[source]
+----
+model <modelName>
+
+type string String(max-length = 128)
+
+entity Person {
+    field String firstName
+    field String lastName
+    derived    String fullName => self.firstName + " " \
+        + self.lastName ;
+}
+----
+
+=== Add an application configuration
+
+Create an `application.properties` file inside the `src/main/resources` directory.
+
+This file serves as a configuration for Spring dataSource and Liquibase.
+
+* The `modelName` has to be the same as the defined `modelName` property in `pom.xml.
+
+[source]
+----
+spring.datasource.driver-class-name=org.hsqldb.jdbc.JDBCDriver
+spring.datasource.url=jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1
+spring.datasource.username=sa
+spring.datasource.password=
+spring.liquibase.change-log=classpath:model/<modelName>-liquibase_hsqldb.changelog.xml
+judo.modelName=<modelName>
+----
+
+=== Add a Spring Boot application class to the sources
+
+Create a `<ModelName>SpringApplication.java` file inside the `src/main/java` directory. You may use any arbitrary
+package.
+
+* The `ModelName` has to be the same as the defined `modelName` property in `pom.xml.
+
+Example:
+
+[source,java]
+----
+package <package>;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
+
+@SpringBootApplication
+@Slf4j
+public class <ModelName>SpringApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(<ModelName>SpringApplication.class, args);
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void ready() {
+        log.info("Application ready");
+
+    }
+}
+----
+
+=== Add Spring Boot application tests
+
+Create a `<ModelName>SpringApplicationTest.java` file inside the `src/test/java` directory. Use same package as to what
+you used for `<ModelName>SpringApplication.java`.
+
+* The `ModelName` has to be the same as the defined `modelName` property in `pom.xml.
+* The `sdkPackagePrefix` attribute has to be the same as the pre-defined `sdkPackagePrefix` property in the `pom.xml` file.
+
+Example:
+
+[source,java]
+----
+package hu.blackbelt.judo.jsl.springboot;
+
+import <sdkPackagePrefix>.test.sdk.test.test.Person;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@SpringBootTest
+class <modelName>SpringApplicationTests {
+
+    @Autowired
+    Person.PersonDao personDao;
+
+    @Test
+    void testDaoFunctions() {
+        Person createdPerson = personDao.create(Person.builder()
+                .withFirstName("FirstName")
+                .withLastName("LastName")
+                .build());
+
+        assertEquals(Optional.of("FirstName"), createdPerson.getFirstName());
+        assertEquals(Optional.of("LastName"), createdPerson.getLastName());
+        // Test derived
+        assertEquals(Optional.of("FirstName LastName"), createdPerson.getFullName());
+    }
+
+}
+----
+
+== Contributing to the project
+
+Everyone is welcome to contribute to JUDO! As a starter, please read the corresponding link:CONTRIBUTING.adoc[CONTRIBUTING] guide for details!
+
+== License
+
+This project is licensed under the https://www.eclipse.org/legal/epl-2.0/[Eclipse Public License - v 2.0].
