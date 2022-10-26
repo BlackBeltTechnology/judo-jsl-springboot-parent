@@ -471,6 +471,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>5.3.20</version>
+        </dependency>
+
+        <dependency>
             <groupId>hu.blackbelt.judo.runtime</groupId>
             <artifactId>judo-runtime-core-spring</artifactId>
         </dependency>
