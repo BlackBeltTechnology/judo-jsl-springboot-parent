@@ -65,15 +65,14 @@ Create a `<modelName>.jsl` file in the `src/main/resources/model` directory. For
 
 [source]
 ----
-model <modelName>
+model <modelName>;
 
-type string String(max-length = 128)
+type string String(min-size = 0, max-size = 128);
 
 entity Person {
-    field String firstName
-    field String lastName
-    derived    String fullName => self.firstName + " " \
-        + self.lastName ;
+    field String firstName;
+    field String lastName;
+    derived String fullName => self.firstName + " " + self.lastName;
 }
 ----
 
