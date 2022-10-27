@@ -9,7 +9,7 @@
     <description>JUDO Specific Language Springboot parent</description>
 
     <properties>
-        <revision>1.0.2</revision>
+        <revision>1.0.3</revision>
         <maven>3.8.3</maven>
         <maven.version>3.8.3</maven.version>
         <project-shortname>judo-jsl-spirngboot-parent</project-shortname>
@@ -67,6 +67,13 @@
             <url>https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.txt</url>
         </license>
     </licenses>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>ecentral</id>
+            <url>https://raw.githubusercontent.com/jmini/ecentral/HEAD/repo</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <build>
         <plugins>
