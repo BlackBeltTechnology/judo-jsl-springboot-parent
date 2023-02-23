@@ -36,7 +36,7 @@ jobs:
           branch=$(echo ${{ github.event.base_ref }} | cut -d/ -f3)
           echo "Version: $version"
           echo "version=$version" >> $GITHUB_OUTPUT
-          echo "BRANCH=$branch" >> $GITHUB_OUTPUT
+          echo "branch=$branch" >> $GITHUB_OUTPUT
 
       - name: Create release note
         uses: ncipollo/release-action@v1
