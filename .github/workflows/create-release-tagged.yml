@@ -76,7 +76,7 @@ jobs:
             message=":cross_mark: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"    
             message="${message} Release notes canceled"        
           fi
-          echo "MESSAGE=${message}" >> $GITHUB_OUTPUT
+          echo "message=${message}" >> $GITHUB_OUTPUT
 
       - name: Write message to file
         run: |-
