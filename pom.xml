@@ -27,9 +27,9 @@
         <jacoco.version>0.8.6</jacoco.version>
 
         <epsilon-runtime-version>1.5.1.20230206_213546_3ade0dbb_develop</epsilon-runtime-version>
-        <judo-tatami-core-version>1.1.4.20230207_041512_1ab54622_develop</judo-tatami-core-version>
-        <judo-tatami-jsl-version>1.1.4.20230224_041846_bfab126e_develop</judo-tatami-jsl-version>
-        <judo-runtime-core-version>1.0.6.20230224_041403_bc5c0f15_develop</judo-runtime-core-version>
+        <judo-tatami-core-version>1.1.4.20230227_164547_fcc9267a_develop</judo-tatami-core-version>
+        <judo-tatami-jsl-version>1.1.4.20230228_042453_adea9d89_develop</judo-tatami-jsl-version>
+        <judo-runtime-core-version>1.0.6.20230228_041950_c86f9bdd_develop</judo-runtime-core-version>
 
         <!-- Code Quality-->
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
