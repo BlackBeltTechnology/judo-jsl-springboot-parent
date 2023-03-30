@@ -30,8 +30,8 @@
 
         <epsilon-runtime-version>1.5.1.20230310_040746_cc563145_develop</epsilon-runtime-version>
         <judo-tatami-core-version>1.1.4.20230313_135716_09605f6a_develop</judo-tatami-core-version>
-        <judo-tatami-jsl-version>1.1.4.20230329_041651_efb28925_develop</judo-tatami-jsl-version>
-        <judo-runtime-core-version>1.0.6.20230327_142940_c18ff20f_develop</judo-runtime-core-version>
+        <judo-tatami-jsl-version>1.1.4.20230330_041802_1aa44f17_develop</judo-tatami-jsl-version>
+        <judo-runtime-core-version>1.0.6.20230330_041334_0517ae7a_develop</judo-runtime-core-version>
 
         <!-- Code Quality-->
         <sonar-maven-plugin-version>3.9.1.2184</sonar-maven-plugin-version>
