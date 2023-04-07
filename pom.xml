@@ -556,7 +556,7 @@
         <dependency>
             <groupId>com.atomikos</groupId>
             <artifactId>transactions-jta</artifactId>
-            <version>4.0.6</version>
+            <version>5.0.9</version>
         </dependency>
 
         <dependency>
