@@ -23,7 +23,7 @@
         <maven.compiler.target>17</maven.compiler.target>
 
         <surefire-version>3.0.0-M7</surefire-version>
-        <slf4j-version>1.7.36</slf4j-version>
+        <slf4j-version>2.0.7</slf4j-version>
 
         <!--suppress UnresolvedMavenProperty -->
         <logback-test-config>${maven.multiModuleProjectDirectory}/logback-test.xml</logback-test-config>
