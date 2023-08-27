@@ -28,10 +28,10 @@
         <!--suppress UnresolvedMavenProperty -->
         <logback-test-config>${maven.multiModuleProjectDirectory}/logback-test.xml</logback-test-config>
 
-        <epsilon-runtime-version>1.5.1.20230826_194510_c3f1e0d5_feature_JNG_5144_ReplaceLogger</epsilon-runtime-version>
-        <judo-tatami-core-version>1.1.4.20230826_202348_f54ba8e7_feature_JNG_5144_ReplaceLogger</judo-tatami-core-version>
-        <judo-tatami-jsl-version>1.1.4.20230826_215424_d66228a0_feature_JNG_5144_ReplaceLogger</judo-tatami-jsl-version>
-        <judo-runtime-core-version>1.0.6.20230826_215054_f80a9866_feature_JNG_5144_ReplaceLogger</judo-runtime-core-version>
+        <epsilon-runtime-version>1.5.1.20230826_231422_c7121526_develop</epsilon-runtime-version>
+        <judo-tatami-core-version>1.1.4.20230827_071652_208a3c5f_develop</judo-tatami-core-version>
+        <judo-tatami-jsl-version>1.1.4.20230827_135142_355b4989_develop</judo-tatami-jsl-version>
+        <judo-runtime-core-version>1.0.6.20230826_230253_dba6609e_develop</judo-runtime-core-version>
 
         <!-- Code Quality-->
         <sonar-maven-plugin-version>3.9.1.2184</sonar-maven-plugin-version>
