@@ -28,6 +28,7 @@
         <!--suppress UnresolvedMavenProperty -->
         <logback-test-config>${maven.multiModuleProjectDirectory}/logback-test.xml</logback-test-config>
         <logback-version>1.5.12</logback-version>
+        <lombok-version>1.18.34</lombok-version>
 
         <epsilon-runtime-version>1.5.1.20240414_020123_4ed0f7e3_develop</epsilon-runtime-version>
         <judo-tatami-core-version>1.1.4.20241118_012712_812a8cc6_develop</judo-tatami-core-version>
@@ -247,7 +248,7 @@
                         <dependency>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>1.18.24</version>
+                            <version>${lombok-version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -428,12 +429,7 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback-version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>${logback-version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -479,7 +475,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
+            <version>${lombok-version}</version>
         </dependency>
 
         <dependency>
