@@ -32,7 +32,7 @@
 
         <epsilon-runtime-version>1.5.1.20241202_003816_c9b63ad9_develop</epsilon-runtime-version>
         <judo-tatami-core-version>1.1.4.20241202_041508_e3484451_develop</judo-tatami-core-version>
-        <judo-tatami-jsl-version>1.1.4.20241202_043648_975097d3_develop</judo-tatami-jsl-version>
+        <judo-tatami-jsl-version>1.1.4.20241206_041458_061e2a88_develop</judo-tatami-jsl-version>
         <judo-runtime-core-version>1.0.6.20241202_043247_f6dbcde6_develop</judo-runtime-core-version>
 
         <!-- Code Quality-->
