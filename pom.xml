@@ -32,7 +32,7 @@
 
         <epsilon-runtime-version>2.8.0.20250818_020714_e9350189_feature_JNG_6322_Minimiize_Karaf_Size</epsilon-runtime-version>
         <judo-tatami-core-version>1.1.4.20250818_010038_2c4e76da_feature_JNG_6322_Minimiize_Karaf_Size</judo-tatami-core-version>
-        <judo-tatami-jsl-version>1.1.4.20250815_042235_bcc3cc6d_develop</judo-tatami-jsl-version>
+        <judo-tatami-jsl-version>1.1.4.20250818_130818_7e4b5e07_feature_JNG_6322_Minimiize_Karaf_Size</judo-tatami-jsl-version>
         <judo-runtime-core-version>1.0.6.20250818_024652_34874920_feature_JNG_6322_Minimiize_Karaf_Size</judo-runtime-core-version>
 
         <!-- Code Quality-->
