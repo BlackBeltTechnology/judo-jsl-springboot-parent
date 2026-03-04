@@ -23,6 +23,17 @@ Key facts:
 
 - [pom.xml](pom.xml): The parent POM — the sole artifact of this project; defines all dependency versions, plugin configurations, Maven profiles, and build lifecycle
 
+## Depends on
+
+- [judo-meta-liquibase](../../models/judo-meta-liquibase): models/judo-meta-liquibase
+- [judo-dao-api](../../runtime/judo-dao-api): runtime/judo-dao-api
+- [judo-runtime-core](../../runtime/judo-runtime-core): runtime/judo-runtime-core
+- [judo-sdk-common](../../runtime/judo-sdk-common): runtime/judo-sdk-common
+- [judo-tatami-base](../../runtime/judo-tatami-base): runtime/judo-tatami-base
+- [judo-tatami-jsl](../../runtime/judo-tatami-jsl): runtime/judo-tatami-jsl
+- [mapper](../../runtime/mapper): runtime/mapper
+- [epsilon-runtime](../../tools/epsilon-runtime): tools/epsilon-runtime
+
 ## Optional
 
 - [.github/workflows/build.yml](.github/workflows/build.yml): Main CI workflow — build, deploy, tag, and create GitHub release
