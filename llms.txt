@@ -25,14 +25,14 @@ Key facts:
 
 ## Depends on
 
-- [judo-meta-liquibase](../../models/judo-meta-liquibase): models/judo-meta-liquibase
-- [judo-dao-api](../../runtime/judo-dao-api): runtime/judo-dao-api
-- [judo-runtime-core](../../runtime/judo-runtime-core): runtime/judo-runtime-core
-- [judo-sdk-common](../../runtime/judo-sdk-common): runtime/judo-sdk-common
-- [judo-tatami-base](../../runtime/judo-tatami-base): runtime/judo-tatami-base
-- [judo-tatami-jsl](../../runtime/judo-tatami-jsl): runtime/judo-tatami-jsl
-- [mapper](../../runtime/mapper): runtime/mapper
-- [epsilon-runtime](../../tools/epsilon-runtime): tools/epsilon-runtime
+- [judo-meta-liquibase](../../models/judo-meta-liquibase): Liquibase database change management metamodel
+- [judo-dao-api](../../runtime/judo-dao-api): Core DAO interfaces for CRUD, query, navigation, and validation
+- [judo-runtime-core](../../runtime/judo-runtime-core): Multi-module runtime engine — data access, business logic, REST, and security
+- [judo-sdk-common](../../runtime/judo-sdk-common): Base classes for generated SDK — entity identity, DAO base, and query filters
+- [judo-tatami-base](../../runtime/judo-tatami-base): PSM transformation pipeline — models to schemas, expressions, and configurations
+- [judo-tatami-jsl](../../runtime/judo-tatami-jsl): JSL-to-runtime model transformation engine (PSM, ASM, UI, RDBMS, etc.)
+- [mapper](../../runtime/mapper): Type mapper and coercer library with 60+ built-in converters
+- [epsilon-runtime](../../tools/epsilon-runtime): Eclipse Epsilon runtime for Maven and OSGi environments
 
 ## Optional
 
