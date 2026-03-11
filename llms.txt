@@ -1,0 +1,42 @@
+# JUDO JSL Springboot Parent
+
+> Parent POM for JUDO JSL Spring Boot applications — provides dependency versions, plugin configurations, code generation pipeline, and build lifecycle that child projects inherit.
+
+Key facts:
+- Java 21, Maven 3.9.4+ with Maven Wrapper
+- Single parent POM (`<packaging>pom</packaging>`), no source code modules
+- Code generation via Tatami JSL workflow: compiles `.jsl` model files into Java SDK classes, DAO interfaces, and Liquibase changelogs
+- Model transformation pipeline: JSL to Platform Specific Model (PSM) to Architecture Specific Model (ASM) to RDBMS
+- Dual database support: HSQLDB (development/testing) and PostgreSQL (production)
+- Spring Boot 3.5.0, JUDO Runtime Core 1.0.6.x, JUDO Tatami JSL 1.1.4.x
+- Part of the [judo-community](https://github.com/BlackBeltTechnology/judo-community) ecosystem
+- License: Eclipse Public License 2.0 (EPL-2.0)
+
+## Docs
+
+- [README.md](README.md): Project overview, bootstrap guide, and usage instructions
+- [AGENTS.md](AGENTS.md): Full developer guide with build commands, technology stack, directory structure, and coding conventions
+- [CONTRIBUTING.md](CONTRIBUTING.md): Development environment setup and contribution guidelines
+- [.github/CIFLOW.md](.github/CIFLOW.md): CI/CD pipeline, branching strategy (GitFlow), and version numbering scheme
+
+## Core
+
+- [pom.xml](pom.xml): The parent POM — the sole artifact of this project; defines all dependency versions, plugin configurations, Maven profiles, and build lifecycle
+
+## Depends on
+
+- [judo-meta-liquibase](../../models/judo-meta-liquibase): Liquibase database change management metamodel
+- [judo-dao-api](../../runtime/judo-dao-api): Core DAO interfaces for CRUD, query, navigation, and validation
+- [judo-runtime-core](../../runtime/judo-runtime-core): Multi-module runtime engine — data access, business logic, REST, and security
+- [judo-sdk-common](../../runtime/judo-sdk-common): Base classes for generated SDK — entity identity, DAO base, and query filters
+- [judo-tatami-base](../../runtime/judo-tatami-base): PSM transformation pipeline — models to schemas, expressions, and configurations
+- [judo-tatami-jsl](../../runtime/judo-tatami-jsl): JSL-to-runtime model transformation engine (PSM, ASM, UI, RDBMS, etc.)
+- [mapper](../../runtime/mapper): Type mapper and coercer library with 60+ built-in converters
+- [epsilon-runtime](../../tools/epsilon-runtime): Eclipse Epsilon runtime for Maven and OSGi environments
+
+## Optional
+
+- [.github/workflows/build.yml](.github/workflows/build.yml): Main CI workflow — build, deploy, tag, and create GitHub release
+- [.github/workflows/release.yml](.github/workflows/release.yml): Manual release workflow — creates PRs for master and develop
+- [logback-test.xml](logback-test.xml): Logback logging configuration used during test execution
+- [LICENSE.txt](LICENSE.txt): Eclipse Public License 2.0 license text
