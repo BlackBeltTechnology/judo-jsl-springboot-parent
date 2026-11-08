@@ -85,7 +85,7 @@ contribution of this repository is what inheritors receive.
 |---|---|
 | judo-runtime-core-dependencies (`${judo-runtime-core-version}`) | Every JUDO runtime, DAO, dispatcher, access-manager, mapper and SDK artifact — this is why those dependencies are declared without a `<version>`. |
 | spring-boot-dependencies 3.5.0 | Spring Boot starters and the Spring ecosystem versions. |
-| eclipse-platform-dependencies 4.22 (`fr.jmini.ecentral`) | Eclipse platform artifacts pulled in by EMF/Epsilon; resolved from the extra `ecentral` plugin repository. |
+| eclipse-platform-dependencies 4.22 (`fr.jmini.ecentral`) | Eclipse platform artifacts pulled in by EMF; resolved from the extra `ecentral` plugin repository. |
 
 Additionally version-managed outside a BOM: `antlr-runtime` 3.2, and the Tatami
 JSL artifacts `judo-tatami-jsl-jsl2psm` and `judo-tatami-jsl-workflow` at

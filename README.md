@@ -222,7 +222,6 @@ graph LR
 
     subgraph "Model Infrastructure"
         EMF["Eclipse EMF"]
-        EPSILON["Epsilon Runtime"]
         ANTLR["ANTLR 3.2"]
     end
 
@@ -234,8 +233,7 @@ graph LR
     end
 
     TATAMI_JSL --> TATAMI_CORE
-    TATAMI_CORE --> EPSILON
-    EPSILON --> EMF
+    TATAMI_CORE --> EMF
     TATAMI_JSL --> ANTLR
     RUNTIME --> DAO_API
     RUNTIME --> SDK_COMMON
