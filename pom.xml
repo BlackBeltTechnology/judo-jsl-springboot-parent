@@ -30,8 +30,8 @@
         <logback-version>1.5.12</logback-version>
         <lombok-version>1.18.34</lombok-version>
         <judo-tatami-core-version>1.1.4.20261106_234338_1cb4f5e2_develop</judo-tatami-core-version>
-        <judo-tatami-jsl-version>1.1.4.20261107_065854_89f747df_develop</judo-tatami-jsl-version>
-        <judo-runtime-core-version>1.0.6.20261107_065007_fbf7ffc5_develop</judo-runtime-core-version>
+        <judo-tatami-jsl-version>1.1.4.20261109_065050_a104c716_develop</judo-tatami-jsl-version>
+        <judo-runtime-core-version>1.0.6.20261109_064135_bab9a73b_develop</judo-runtime-core-version>
 
         <!-- Code Quality-->
         <sonar-maven-plugin-version>3.9.1.2184</sonar-maven-plugin-version>
